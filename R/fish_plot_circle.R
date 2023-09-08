@@ -1,0 +1,26 @@
+fish_plot_circle <- function(data, cell_of_interest, pixel_size){
+  
+  # filter data for cell of interest
+  data[["outlines"]] <- dplyr::filter(data[["outlines"]], cell == cell_of_interest)
+  data[["spots"]] <- dplyr::filter(data[["spots"]], cell == cell_of_interest)
+  
+  # plot cell outlines
+  plot <- ggplot2::ggplot(data = data[["outlines"]],
+                          mapping = ggplot2::aes(x = x_pos, y = -y_pos, group = cell)) +
+    ggplot2::geom_polygon(alpha = 0.1) +
+    ggplot2::coord_equal() +
+    ggplot2::theme_classic() +
+    ggplot2::theme(strip.background = ggplot2::element_blank(),
+                   strip.text = ggplot2::element_blank())
+  
+  # plot spots
+  plot <- plot +
+    ggforce::geom_circle(data = data[["spots"]],
+                         mapping = ggplot2::aes(x = NULL, y = NULL, x0 = X_det, y0 = -Y_det, r = (SigmaX / pixel_size) * sqrt(2 * log(2)), group = cell, colour = NULL, fill = channel),
+                         alpha = 0.75) +
+    ggplot2::geom_text(data = data[["spots"]],
+                       mapping = ggplot2::aes(x = X_det, y = -Y_det, group = cell, label = spot))
+  
+  # return plot
+  plot
+}
