@@ -1,8 +1,17 @@
+#' Extract Spot Data From FISH-QUANT File
+#'
+#' @param file File from FISH-QUANT (imported using readLines)
+#' @param line_selection Data frame containing the line indices for each cell
+#' @param channel The channel being analysed e.g. "Cy5"
+#'
+#' @return Data frame containing spot data in tidy format
+#' @export
+#'
 fish_spot_extraction <- function(file, line_selection, channel){
-  
+
   # create spots data frame from line_selection
   spots <- line_selection
-  
+
   # create new column containing spot data
   # uses spot_extraction function to read out the appropriate lines from file
   spots[["spot_data"]] <- purrr::map2(spots[["spots_start"]],
@@ -15,10 +24,10 @@ fish_spot_extraction <- function(file, line_selection, channel){
   # add column indicating channel
   spots <- dplyr::mutate(spots,
                          number_of_spots = sapply(spot_data, nrow))
-  
+
   # convert to non-nested data frame
   spots <- tidyr::unnest(spots, spot_data)
-  
+
   # add channel column
   # convert spot column to factor
   # add identifier column - cell/channel/spot
@@ -36,7 +45,7 @@ fish_spot_extraction <- function(file, line_selection, channel){
   spots <- dplyr::select(spots,
                          -c(cell_has_spots, cell_start, cell_end, spots_start, spots_end))
   spots <- dplyr::ungroup(spots)
-  
+
   # return spots data frame
   spots
 }
