@@ -2,11 +2,12 @@
 #'
 #' @param data Output list from fish_combined, containing cell outlines and spot data
 #' @param cell_of_interest The index of the cell to plot
+#' @param pixel_size The size of each pixel (in nanometers)
 #'
 #' @return ggplot object showing cell of interest with all of its spots
 #' @export
 #'
-fish_plot_single <- function(data, cell_of_interest){
+fish_plot_single <- function(data, cell_of_interest, pixel_size){
 
   # filter data for cell of interest
   data[["outlines"]] <- dplyr::filter(data[["outlines"]], cell == cell_of_interest)
@@ -24,7 +25,7 @@ fish_plot_single <- function(data, cell_of_interest){
   # plot spots
   plot <- plot +
     ggplot2::geom_point(data = data[["spots"]],
-                        mapping = ggplot2::aes(x = X_det, y = -Y_det, group = cell, colour = channel))
+                        mapping = ggplot2::aes(x = Pos_X / pixel_size, y = -Pos_Y / pixel_size, group = cell, colour = channel))
 
   # return plot
   plot

@@ -25,10 +25,10 @@ fish_plot_circle <- function(data, cell_of_interest, pixel_size){
   # plot spots
   plot <- plot +
     ggforce::geom_circle(data = data[["spots"]],
-                         mapping = ggplot2::aes(x = NULL, y = NULL, x0 = X_det, y0 = -Y_det, r = (SigmaX / pixel_size) * sqrt(2 * log(2)), group = cell, colour = NULL, fill = channel),
+                         mapping = ggplot2::aes(x = NULL, y = NULL, x0 = Pos_X / pixel_size, y0 = -Pos_Y / pixel_size, r = (SigmaX / pixel_size) * sqrt(2 * log(2)), group = cell, colour = NULL, fill = channel),
                          alpha = 0.75) +
     ggplot2::geom_text(data = data[["spots"]],
-                       mapping = ggplot2::aes(x = X_det, y = -Y_det, group = cell, label = spot))
+                       mapping = ggplot2::aes(x = Pos_X / pixel_size, y = -Pos_Y / pixel_size, group = cell, label = spot))
 
   # return plot
   plot

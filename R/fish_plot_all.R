@@ -1,11 +1,12 @@
 #' Plot FISH-QUANT Data For All Cells
 #'
 #' @param data Output list from fish_combined, containing cell outlines and spot data
+#' @param pixel_size The size of each pixel (in nanometers)
 #'
 #' @return ggplot object showing all cells and spots
 #' @export
 #'
-fish_plot_all <- function(data){
+fish_plot_all <- function(data, pixel_size){
 
   # plot cell outlines
   plot <- ggplot2::ggplot(data = data[["outlines"]],
@@ -19,7 +20,7 @@ fish_plot_all <- function(data){
   # plot spots
   plot <- plot +
     ggplot2::geom_point(data = data[["spots"]],
-                        mapping = ggplot2::aes(x = X_det, y = -Y_det, group = cell, colour = channel))
+                        mapping = ggplot2::aes(x = Pos_X / pixel_size, y = -Pos_Y / pixel_size, group = cell, colour = channel))
 
   # return plot
   plot
