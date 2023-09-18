@@ -38,9 +38,9 @@ colocalisation <- function(spots, cell_of_interest){
         distance[row, "ch2_index"] <- j
 
         # calculate 3-dimensional distance between spots
-        distance[row, "distance"] <- sqrt((ch1[["Pos_X"]][i] - ch2[["Pos_X"]][j])^2 +
-                                          (ch1[["Pos_Y"]][i] - ch2[["Pos_Y"]][j])^2 +
-                                          (ch1[["Pos_Z"]][i] - ch2[["Pos_Z"]][j])^2 )
+        distance[row, "distance"] <- sqrt((ch1[["x_pos"]][i] - ch2[["x_pos"]][j])^2 +
+                                          (ch1[["y_pos"]][i] - ch2[["y_pos"]][j])^2 +
+                                          (ch1[["z_pos"]][i] - ch2[["z_pos"]][j])^2 )
 
         # calculate sum of spot radii
         # full width at half maximum (FWMH) measures width of Gaussian distribution

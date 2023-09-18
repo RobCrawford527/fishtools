@@ -2,12 +2,11 @@
 #'
 #' @param data Output list from fish_combined, containing cell outlines and spot data
 #' @param cell_of_interest The index of the cell to plot
-#' @param pixel_size The size of each pixel (in nanometers)
 #'
 #' @return ggplot object showing cell of interest with all of its spots, with spots proportionately sized
 #' @export
 #'
-fish_plot_circle <- function(data, cell_of_interest, pixel_size){
+fish_plot_circle <- function(data, cell_of_interest){
 
   # filter data for cell of interest
   data[["outlines"]] <- dplyr::filter(data[["outlines"]], cell == cell_of_interest)
@@ -25,10 +24,10 @@ fish_plot_circle <- function(data, cell_of_interest, pixel_size){
   # plot spots
   plot <- plot +
     ggforce::geom_circle(data = data[["spots"]],
-                         mapping = ggplot2::aes(x = NULL, y = NULL, x0 = Pos_X / pixel_size, y0 = -Pos_Y / pixel_size, r = (SigmaX / pixel_size) * sqrt(2 * log(2)), group = cell, colour = NULL, fill = channel),
+                         mapping = ggplot2::aes(x = NULL, y = NULL, x0 = x_pos, y0 = -y_pos, r = SigmaX * sqrt(2 * log(2)), group = cell, colour = NULL, fill = channel),
                          alpha = 0.75) +
     ggplot2::geom_text(data = data[["spots"]],
-                       mapping = ggplot2::aes(x = Pos_X / pixel_size, y = -Pos_Y / pixel_size, group = cell, label = spot))
+                       mapping = ggplot2::aes(x = x_pos, y = -y_pos, group = cell, label = spot))
 
   # return plot
   plot
