@@ -8,8 +8,10 @@
 #'
 fish_null_distribution <- function(spots, iterations = 10){
 
-  # group spots data by cell only
-  spots[["spots"]] <- dplyr::group_by(spots[["spots"]], cell)
+  # ungroup spots
+  # determine number of spots present in data
+  spots[["spots"]] <- dplyr::ungroup(spots[["spots"]])
+  total <- nrow(spots[["spots"]])
 
   # create empty data frame to read results into
   null_distribution <- data.frame()
@@ -18,12 +20,13 @@ fish_null_distribution <- function(spots, iterations = 10){
   for (i in 1:iterations){
 
     # create copy of spots to modify
-    # shuffle X, Y and Z positions for spots within each cell
+    # shuffle X, Y and Z positions for all spots
     spots_i <- spots
     spots_i[["spots"]] <- dplyr::mutate(spots_i[["spots"]],
-                                        Pos_X = Pos_X[sample.int(dplyr::n())],
-                                        Pos_Y = Pos_Y[sample.int(dplyr::n())],
-                                        Pos_Z = Pos_Z[sample.int(dplyr::n())])
+                                        x_pos = x_pos[sample.int(n = total, size = total)],
+                                        y_pos = y_pos[sample.int(n = total, size = total)],
+                                        z_pos = z_pos[sample.int(n = total, size = total)],
+                                        SigmaX = SigmaX[sample.int(n = total, size = total)])
 
     # calculate distances between simulated spots
     distances_i <- fish_colocalisation(spots_i)
