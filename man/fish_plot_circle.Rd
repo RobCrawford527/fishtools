@@ -4,14 +4,12 @@
 \alias{fish_plot_circle}
 \title{Plot FISH-QUANT Data For A Single Cell, With Spots Proportionately Sized}
 \usage{
-fish_plot_circle(data, cell_of_interest, pixel_size)
+fish_plot_circle(data, cell_of_interest)
 }
 \arguments{
 \item{data}{Output list from fish_combined, containing cell outlines and spot data}
 
 \item{cell_of_interest}{The index of the cell to plot}
-
-\item{pixel_size}{The size of each pixel (in nanometers)}
 }
 \value{
 ggplot object showing cell of interest with all of its spots, with spots proportionately sized
