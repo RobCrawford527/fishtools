@@ -1,12 +1,28 @@
 #' Standardise Cell And Spot Position Data From FISH-QUANT
 #'
 #' @param data Output list from fish_combined, containing cell outlines and spot data
-#' @param pixel_size The size of each pixel (in nanometers)
+#' @param pixel_size The size of each pixel (in nanometers). If NULL (default), calculated from spot data: ratio of spot position in nm to spot position in pixels
 #'
 #' @return List containing cell centres, cell outlines and spots
 #' @export
 #'
-fish_standardise <- function(data, pixel_size){
+fish_standardise <- function(data, pixel_size = NULL){
+
+  # calculate pixel size if not set already
+  if (is.null(pixel_size)){
+
+    # calculate ratios for x and y
+    # ratio of position in nm to position in pixels
+    x_ratio <- data[["spots"]][["x_pos"]] / data[["spots"]][["X_det"]]
+    y_ratio <- data[["spots"]][["y_pos"]] / data[["spots"]][["Y_det"]]
+
+    # determine pixel size
+    # calculate mean ratio across x and y
+    pixel_size <- mean(c(x_ratio, y_ratio))
+
+    # print pixel size
+    print(pixel_size)
+  }
 
   # extract outline data
   # multiply by pixel_size to convert outline data to nanometers
