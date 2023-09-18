@@ -32,6 +32,7 @@ fish_spot_extraction <- function(file, line_selection, channel){
   # convert spot column to factor
   # add identifier column - cell/channel/spot
   # reorder columns
+  # rename Pos_X to x_pos etc.
   spots <- dplyr::mutate(spots,
                          cell = cell,
                          channel = channel,
@@ -39,6 +40,10 @@ fish_spot_extraction <- function(file, line_selection, channel){
                          identifier = paste(cell, channel, spot, sep = "_"),
                          number_of_spots = number_of_spots,
                          .before = cell_has_spots)
+  spots <- dplyr::rename(spots,
+                         x_pos = Pos_X,
+                         y_pos = Pos_Y,
+                         z_pos = Pos_Z)
 
   # drop excess columns
   # remove grouping
