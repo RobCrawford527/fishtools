@@ -4,12 +4,24 @@
 \alias{colocalisation}
 \title{Calculate Distances Between Spots In Opposite Channels For A Single Cell}
 \usage{
-colocalisation(spots, cell_of_interest)
+colocalisation(
+  spots,
+  cell_of_interest,
+  method = "radius",
+  multiplier = 1,
+  threshold = 500
+)
 }
 \arguments{
 \item{spots}{Data frame containing spot data in two channels}
 
 \item{cell_of_interest}{The index of the cell of interest}
+
+\item{method}{Method used to determine colocalisation. Options are "radius" (uses sum of spot radii) or "absolute" (sets an absolute distance)}
+
+\item{multiplier}{Multiplier for sum of radii. Set lower for more strict colocalisation. Used if method = "radius"}
+
+\item{threshold}{Distance threshold (in nm) for determining colocalisation. Used if method = "absolute"}
 }
 \value{
 Data frame containing all pairwise distances between spots in opposite channels

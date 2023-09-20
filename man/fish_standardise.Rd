@@ -4,12 +4,12 @@
 \alias{fish_standardise}
 \title{Standardise Cell And Spot Position Data From FISH-QUANT}
 \usage{
-fish_standardise(data, pixel_size)
+fish_standardise(data, pixel_size = NULL)
 }
 \arguments{
 \item{data}{Output list from fish_combined, containing cell outlines and spot data}
 
-\item{pixel_size}{The size of each pixel (in nanometers)}
+\item{pixel_size}{The size of each pixel (in nanometers). If NULL (default), calculated from spot data: ratio of spot position in nm to spot position in pixels}
 }
 \value{
 List containing cell centres, cell outlines and spots
