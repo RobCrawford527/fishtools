@@ -21,7 +21,7 @@ fish_colocalisation <- function(spots, method = "radius", multiplier = 1, thresh
   # for each cell, calculate distance between all spots in opposing channels
   # write into data frame
   for (i in cells){
-    spot_distances_i <- colocalisation(spots[["spots"]], i)
+    spot_distances_i <- colocalisation(spots[["spots"]], i,  method = method, multiplier = multiplier, threshold = threshold)
     spot_distances <- rbind.data.frame(spot_distances, spot_distances_i)
   }
 

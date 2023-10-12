@@ -72,7 +72,7 @@ colocalisation <- function(spots, cell_of_interest, method = "radius", multiplie
       # colocalised if distance is less than sum of radii
       # multiplier is used to make threshold more strict
       distance <- dplyr::mutate(distance,
-                                colocalised = ifelse(distance < fwhm * multiplier, TRUE, FALSE))
+                                colocalised = ifelse(distance < fwhm_sum * multiplier, TRUE, FALSE))
 
     } else if (method == "absolute"){
 
