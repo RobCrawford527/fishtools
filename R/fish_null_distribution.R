@@ -2,11 +2,14 @@
 #'
 #' @param spots List containing spot data
 #' @param iterations Number of iterations to perform, default = 10
+#' @param method Method used to determine colocalisation. Options are "radius" (uses sum of spot radii) or "absolute" (sets an absolute distance)
+#' @param multiplier Multiplier for sum of radii. Set lower for more strict colocalisation. Used if method = "radius"
+#' @param threshold Distance threshold (in nm) for determining colocalisation. Used if method = "absolute"
 #'
 #' @return Data frame containing simulated % colocalisation for each channel (one row per iteration)
 #' @export
 #'
-fish_null_distribution <- function(spots, iterations = 10){
+fish_null_distribution <- function(spots, iterations = 10, method = "radius", multiplier = 1, threshold = 500){
 
   # ungroup spots
   # determine number of spots present in data
@@ -29,7 +32,10 @@ fish_null_distribution <- function(spots, iterations = 10){
                                         SigmaX = SigmaX[sample.int(n = total, size = total)])
 
     # calculate distances between simulated spots
-    distances_i <- fish_colocalisation(spots_i)
+    distances_i <- fish_colocalisation(spots_i,
+                                       method = method,
+                                       multiplier = multiplier,
+                                       threshold = threshold)
 
     # find closest neighbour in opposite channel for simulated spots
     closest_neighbours_i <- fish_closest_spots(distances_i)

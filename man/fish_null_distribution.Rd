@@ -4,12 +4,24 @@
 \alias{fish_null_distribution}
 \title{Estimate Null Distribution For Colocalisation Data}
 \usage{
-fish_null_distribution(spots, iterations = 10)
+fish_null_distribution(
+  spots,
+  iterations = 10,
+  method = "radius",
+  multiplier = 1,
+  threshold = 500
+)
 }
 \arguments{
 \item{spots}{List containing spot data}
 
 \item{iterations}{Number of iterations to perform, default = 10}
+
+\item{method}{Method used to determine colocalisation. Options are "radius" (uses sum of spot radii) or "absolute" (sets an absolute distance)}
+
+\item{multiplier}{Multiplier for sum of radii. Set lower for more strict colocalisation. Used if method = "radius"}
+
+\item{threshold}{Distance threshold (in nm) for determining colocalisation. Used if method = "absolute"}
 }
 \value{
 Data frame containing simulated \% colocalisation for each channel (one row per iteration)
