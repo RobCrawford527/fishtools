@@ -2,13 +2,10 @@
 #'
 #' @param spots Data frame containing spot data in two channels
 #' @param cell_of_interest The index of the cell of interest
-#' @param method Method used to determine colocalisation. Options are "radius" (uses sum of spot radii) or "absolute" (sets an absolute distance)
-#' @param multiplier Multiplier for sum of radii. Set lower for more strict colocalisation. Used if method = "radius"
-#' @param threshold Distance threshold (in nm) for determining colocalisation. Used if method = "absolute"
 #'
 #' @return Data frame containing all pairwise distances between spots in opposite channels
 #'
-colocalisation <- function(spots, cell_of_interest, method = "radius", multiplier = 1, threshold = 500){
+distances <- function(spots, cell_of_interest){
 
   # filter spot data for cell of interest
   # define channels present in data
@@ -64,22 +61,6 @@ colocalisation <- function(spots, cell_of_interest, method = "radius", multiplie
                               cell_ch1 = paste(cell, ch1_index, sep = "_"),
                               cell_ch2 = paste(cell, ch2_index, sep = "_"),
                               .before = distance)
-
-    # assess if spots are colocalised
-    # two possible methods: radius uses sum of radii (can be adjusted using the multiplier)
-    if (method == "radius"){
-
-      # colocalised if distance is less than sum of radii
-      # multiplier is used to make threshold more strict
-      distance <- dplyr::mutate(distance,
-                                colocalised = ifelse(distance < fwhm_sum * multiplier, TRUE, FALSE))
-
-    } else if (method == "absolute"){
-
-      # colocalised if distance is less than absolute value
-      distance <- dplyr::mutate(distance,
-                                colocalised = ifelse(distance < threshold, TRUE, FALSE))
-    }
 
   } else {
 

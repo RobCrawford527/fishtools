@@ -1,14 +1,11 @@
 #' Calculate Distances Between Spots In Opposite Channels
 #'
 #' @param spots Data frame containing spot data in two channels
-#' @param method Method used to determine colocalisation. Options are "radius" (uses sum of spot radii) or "absolute" (sets an absolute distance)
-#' @param multiplier Multiplier for sum of radii. Set lower for more strict colocalisation. Used if method = "radius"
-#' @param threshold Distance threshold (in nm) for determining colocalisation. Used if method = "absolute"
 #'
 #' @return Data frame containing all pairwise distances between spots in opposite channels
 #' @export
 #'
-fish_colocalisation <- function(spots, method = "radius", multiplier = 1, threshold = 500){
+fish_distances <- function(spots){
 
   # find unique cells
   # order cells
@@ -21,7 +18,7 @@ fish_colocalisation <- function(spots, method = "radius", multiplier = 1, thresh
   # for each cell, calculate distance between all spots in opposing channels
   # write into data frame
   for (i in cells){
-    spot_distances_i <- colocalisation(spots[["spots"]], i,  method = method, multiplier = multiplier, threshold = threshold)
+    spot_distances_i <- distances(spots[["spots"]], i)
     spot_distances <- rbind.data.frame(spot_distances, spot_distances_i)
   }
 
