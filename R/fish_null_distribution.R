@@ -32,7 +32,7 @@ fish_null_distribution <- function(spots, iterations = 10, method = "absolute", 
                                         SigmaX = SigmaX[sample.int(n = total, size = total)])
 
     # calculate distances between simulated spots
-    distances_i <- fish_colocalisation(spots_i)
+    distances_i <- fish_distances(spots_i)
 
     # find closest neighbour in opposite channel for simulated spots
     closest_neighbours_i <- fish_closest_spots(distances_i)
