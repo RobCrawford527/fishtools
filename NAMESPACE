@@ -2,8 +2,8 @@
 
 export(fish_cell_outlines)
 export(fish_closest_spots)
-export(fish_colocalisation)
 export(fish_combined)
+export(fish_distances)
 export(fish_line_selection)
 export(fish_mclust)
 export(fish_null_distribution)
