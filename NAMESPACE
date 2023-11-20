@@ -2,6 +2,7 @@
 
 export(fish_cell_outlines)
 export(fish_closest_spots)
+export(fish_coloc_threshold)
 export(fish_combined)
 export(fish_distances)
 export(fish_line_selection)
