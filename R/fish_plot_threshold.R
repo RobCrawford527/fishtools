@@ -9,11 +9,11 @@
 #' @export
 #'
 fish_plot_threshold <- function(data, cell_of_interest, threshold = 300, spot_radius = 75){
-  
+
   # filter data for cell of interest
   data[["outlines"]] <- dplyr::filter(data[["outlines"]], cell == cell_of_interest)
   data[["spots"]] <- dplyr::filter(data[["spots"]], cell == cell_of_interest)
-  
+
   # plot cell outlines
   plot <- ggplot2::ggplot(data = data[["outlines"]],
                           mapping = ggplot2::aes(x = x_pos, y = -y_pos, group = cell)) +
@@ -22,18 +22,20 @@ fish_plot_threshold <- function(data, cell_of_interest, threshold = 300, spot_ra
     ggplot2::theme_classic() +
     ggplot2::theme(strip.background = ggplot2::element_blank(),
                    strip.text = ggplot2::element_blank())
-  
+
   # plot spots
   plot <- plot +
     ggforce::geom_circle(data = data[["spots"]],
                          mapping = ggplot2::aes(x = NULL, y = NULL, x0 = x_pos, y0 = -y_pos, r = threshold, group = cell, colour = NULL, fill = channel),
                          alpha = 0.25) +
-    ggforce::geom_circle(data = data[["spots"]],
-                         mapping = ggplot2::aes(x = NULL, y = NULL, x0 = x_pos, y0 = -y_pos, r = radius, group = cell, colour = NULL, fill = channel),
-                         alpha = 0.75) +
+    ggforce::geom_point(data = data[["spots"]],
+                        mapping = ggplot2::aes(colour = NULL, fill = channel),
+                        pch = 21,
+                        colour = NA,
+                        alpha = 0.75) +
     ggplot2::geom_text(data = data[["spots"]],
-                       mapping = ggplot2::aes(x = x_pos, y = -y_pos, group = cell, label = spot))
-  
+                       mapping = ggplot2::aes(label = spot))
+
   # return plot
   plot
 }
