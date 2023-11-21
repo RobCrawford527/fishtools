@@ -17,7 +17,7 @@ mclust_plot <- function(data, model, n_bins = 120){
   n_spots <- model[["n_spots"]]
   n_components <- max(model[["parameters"]][["component"]])
   parameters <- model[["parameters"]]
-  colours <- viridis::viridis(n = n_components, begin = 0.1, end = 0.9, option = "inferno")
+  colours <- viridis::viridis(n = n_components, begin = 0.1, end = 0.9)
 
   # set up the plot
   plot <- ggplot2::ggplot(data = data[["spots"]], ggplot2::aes(x = INT_raw)) +

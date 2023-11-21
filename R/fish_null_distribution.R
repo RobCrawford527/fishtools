@@ -20,35 +20,37 @@ fish_null_distribution <- function(spots, iterations = 10, method = "absolute", 
   null_distribution <- data.frame()
 
   # calculate null distribution for colocalisation
-  for (i in 1:iterations){
+  if (iterations >= 1){
+    for (i in 1:iterations){
 
-    # create copy of spots to modify
-    # shuffle X, Y and Z positions for all spots
-    spots_i <- spots
-    spots_i[["spots"]] <- dplyr::mutate(spots_i[["spots"]],
-                                        x_pos = x_pos[sample.int(n = total, size = total)],
-                                        y_pos = y_pos[sample.int(n = total, size = total)],
-                                        z_pos = z_pos[sample.int(n = total, size = total)],
-                                        SigmaX = SigmaX[sample.int(n = total, size = total)])
+      # create copy of spots to modify
+      # shuffle X, Y and Z positions for all spots
+      spots_i <- spots
+      spots_i[["spots"]] <- dplyr::mutate(spots_i[["spots"]],
+                                          x_pos = x_pos[sample.int(n = total, size = total)],
+                                          y_pos = y_pos[sample.int(n = total, size = total)],
+                                          z_pos = z_pos[sample.int(n = total, size = total)],
+                                          SigmaX = SigmaX[sample.int(n = total, size = total)])
 
-    # calculate distances between simulated spots
-    distances_i <- fish_distances(spots_i)
+      # calculate distances between simulated spots
+      distances_i <- fish_distances(spots_i)
 
-    # find closest neighbour in opposite channel for simulated spots
-    closest_neighbours_i <- fish_closest_spots(distances_i)
+      # find closest neighbour in opposite channel for simulated spots
+      closest_neighbours_i <- fish_closest_spots(distances_i)
 
-    # decide for each pair of closest neighbours whether spots are colocalised
-    closest_neighbours_i <- lapply(closest_neighbours_i,
-                                   function(x) fish_coloc_threshold(x,
-                                                                    method = method,
-                                                                    threshold = threshold,
-                                                                    multiplier = multiplier))
+      # decide for each pair of closest neighbours whether spots are colocalised
+      closest_neighbours_i <- lapply(closest_neighbours_i,
+                                     function(x) fish_coloc_threshold(x,
+                                                                      method = method,
+                                                                      threshold = threshold,
+                                                                      multiplier = multiplier))
 
-    # calculate colocalisation % for each channel
-    # write into output data frame
-    coloc <- sapply(closest_neighbours_i,
-                    function(x) sum(x[["colocalised"]] / length(x[["colocalised"]]) * 100))
-    null_distribution <- rbind.data.frame(null_distribution, coloc)
+      # calculate colocalisation % for each channel
+      # write into output data frame
+      coloc <- sapply(closest_neighbours_i,
+                      function(x) sum(x[["colocalised"]] / length(x[["colocalised"]]) * 100))
+      null_distribution <- rbind.data.frame(null_distribution, coloc)
+    }
   }
 
   # change column names

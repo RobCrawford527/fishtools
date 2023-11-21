@@ -34,4 +34,3 @@ fish_coloc_threshold <- function(distances,
   # return mutated data frame
   distances
 }
-
