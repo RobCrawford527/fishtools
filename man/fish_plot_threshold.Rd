@@ -4,7 +4,7 @@
 \alias{fish_plot_threshold}
 \title{Plot FISH-QUANT Data For A Single Cell Along With Colocalisation Threshold}
 \usage{
-fish_plot_threshold(data, cell_of_interest, threshold = 300, spot_radius = 75)
+fish_plot_threshold(data, cell_of_interest, threshold = 300)
 }
 \arguments{
 \item{data}{Output list from fish_combined, containing cell outlines and spot data}
@@ -12,8 +12,6 @@ fish_plot_threshold(data, cell_of_interest, threshold = 300, spot_radius = 75)
 \item{cell_of_interest}{The index of the cell to plot}
 
 \item{threshold}{Distance threshold to plot (in nm)}
-
-\item{spot_radius}{Size to plot the spots (in nm)}
 }
 \value{
 ggplot object showing cell of interest with all of its spots, with spots proportionately sized
