@@ -3,12 +3,11 @@
 #' @param data Output list from fish_combined, containing cell outlines and spot data
 #' @param cell_of_interest The index of the cell to plot
 #' @param threshold Distance threshold to plot (in nm)
-#' @param spot_radius Size to plot the spots (in nm)
 #'
 #' @return ggplot object showing cell of interest with all of its spots, with spots proportionately sized
 #' @export
 #'
-fish_plot_threshold <- function(data, cell_of_interest, threshold = 300, spot_radius = 75){
+fish_plot_threshold <- function(data, cell_of_interest, threshold = 300){
 
   # filter data for cell of interest
   data[["outlines"]] <- dplyr::filter(data[["outlines"]], cell == cell_of_interest)
@@ -28,7 +27,7 @@ fish_plot_threshold <- function(data, cell_of_interest, threshold = 300, spot_ra
     ggforce::geom_circle(data = data[["spots"]],
                          mapping = ggplot2::aes(x = NULL, y = NULL, x0 = x_pos, y0 = -y_pos, r = threshold, group = cell, colour = NULL, fill = channel),
                          alpha = 0.25) +
-    ggforce::geom_point(data = data[["spots"]],
+    ggplot2::geom_point(data = data[["spots"]],
                         mapping = ggplot2::aes(colour = NULL, fill = channel),
                         pch = 21,
                         colour = NA,
