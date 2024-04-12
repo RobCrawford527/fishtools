@@ -1,23 +1,19 @@
 #' Calculate Distances Between Spots In Opposite Channels For A Single Cell
 #'
-#' @param spots Data frame containing spot data in two channels
+#' @param ch1_spots Data frame containing spot data from first channel
+#' @param ch2_spots Data frame containing spot data from second channel
 #' @param cell_of_interest The index of the cell of interest
 #'
 #' @return Data frame containing all pairwise distances between spots in opposite channels
 #'
-distances <- function(spots, cell_of_interest){
+distances <- function(ch1_spots, ch2_spots, cell_of_interest){
 
-  # filter spot data for cell of interest
-  # define channels present in data
-  spots_filt <- dplyr::filter(spots, cell == cell_of_interest)
-  channels <- unique(spots_filt[["channel"]])
+  # filter each data frame for cell of interest
+  ch1_spots_filt <- dplyr::filter(ch1_spots, cell == cell_of_interest)
+  ch2_spots_filt <- dplyr::filter(ch2_spots, cell == cell_of_interest)
 
-  # only continue if there are exactly two channels present
-  if (length(channels) == 2){
-
-    # create filtered data frames for individual channels
-    ch1 <- dplyr::filter(spots_filt, channel == channels[1])
-    ch2 <- dplyr::filter(spots_filt, channel == channels[2])
+  # only continue if there are spots in both channels
+  if (nrow(ch1_spots_filt) >= 1 & nrow(ch2_spots_filt) >= 1){
 
     # create blank distance data frame
     # set starting row index
@@ -64,7 +60,7 @@ distances <- function(spots, cell_of_interest){
 
   } else {
 
-    # create empty data frame if not two channels
+    # create empty data frame if spots missing from one or both channels
     distance <- data.frame()
   }
 
