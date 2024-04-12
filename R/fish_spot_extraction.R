@@ -3,11 +3,12 @@
 #' @param file File from FISH-QUANT (imported using readLines)
 #' @param line_selection Data frame containing the line indices for each cell
 #' @param channel The channel being analysed e.g. "Cy5"
+#' @param mRNA The name of the mRNA being analysed e.g. "PGK1"
 #'
 #' @return Data frame containing spot data in tidy format
 #' @export
 #'
-fish_spot_extraction <- function(file, line_selection, channel){
+fish_spot_extraction <- function(file, line_selection, channel, mRNA){
 
   # create spots data frame from line_selection
   data <- line_selection
@@ -36,7 +37,8 @@ fish_spot_extraction <- function(file, line_selection, channel){
   data <- dplyr::mutate(data,
                         cell = type.convert(cell, as.is = TRUE),
                         channel = channel,
-                        spot = as.factor(spot),
+                        mRNA = mRNA,
+                        spot = type.convert(spot, as.is = TRUE),
                         .before = cell_has_spots)
   data <- dplyr::rename(data,
                         x_pos = Pos_X,
