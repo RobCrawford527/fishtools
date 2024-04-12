@@ -6,6 +6,7 @@
 \usage{
 fish_null_distribution(
   spots,
+  shuffle = "both",
   iterations = 10,
   method = "absolute",
   threshold = 500,
@@ -14,6 +15,8 @@ fish_null_distribution(
 }
 \arguments{
 \item{spots}{List containing spot data}
+
+\item{shuffle}{Which channel(s) to shuffle: "ch1", "ch2" or "both" (default)}
 
 \item{iterations}{Number of iterations to perform, default = 10}
 

@@ -4,10 +4,12 @@
 \alias{fish_distances}
 \title{Calculate Distances Between Spots In Opposite Channels}
 \usage{
-fish_distances(spots)
+fish_distances(ch1_spots, ch2_spots)
 }
 \arguments{
-\item{spots}{Data frame containing spot data in two channels}
+\item{ch1_spots}{Data frame containing spot data from first channel}
+
+\item{ch2_spots}{Data frame containing spot data from second channel}
 }
 \value{
 Data frame containing all pairwise distances between spots in opposite channels

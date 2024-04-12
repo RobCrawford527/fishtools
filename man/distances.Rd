@@ -4,10 +4,12 @@
 \alias{distances}
 \title{Calculate Distances Between Spots In Opposite Channels For A Single Cell}
 \usage{
-distances(spots, cell_of_interest)
+distances(ch1_spots, ch2_spots, cell_of_interest)
 }
 \arguments{
-\item{spots}{Data frame containing spot data in two channels}
+\item{ch1_spots}{Data frame containing spot data from first channel}
+
+\item{ch2_spots}{Data frame containing spot data from second channel}
 
 \item{cell_of_interest}{The index of the cell of interest}
 }
