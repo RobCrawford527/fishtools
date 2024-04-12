@@ -57,16 +57,6 @@ distances <- function(ch1_spots, ch2_spots, cell_of_interest){
         row <- row + 1
       }
     }
-
-    # convert index columns to factors
-    # add cell_spot columns
-    distance <- dplyr::mutate(distance,
-                              ch1_index = as.factor(ch1_index),
-                              ch2_index = as.factor(ch2_index),
-                              cell_ch1 = paste(cell, ch1_index, sep = "_"),
-                              cell_ch2 = paste(cell, ch2_index, sep = "_"),
-                              .before = distance)
-
   } else {
 
     # create empty data frame if spots missing from one or both channels
