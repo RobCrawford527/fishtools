@@ -5,7 +5,7 @@
 #' @return Data frame containing the line indices for each cell
 #' @export
 #'
-fish_line_selection <- function(file){
+line_selection <- function(file){
 
   # identify lines corresponding to cell and spot starts and ends
   lines <- tibble::tibble(line = 1:length(file),
