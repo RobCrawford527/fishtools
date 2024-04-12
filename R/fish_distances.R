@@ -9,8 +9,8 @@
 fish_distances <- function(ch1_spots, ch2_spots){
 
   # identify cells in each channel
-  ch1_cells <- unique(ch1_spots$cell)
-  ch2_cells <- unique(ch2_spots$cell)
+  ch1_cells <- type.convert(unique(ch1_spots$cell), as.is = TRUE)
+  ch2_cells <- type.convert(unique(ch2_spots$cell), as.is = TRUE)
 
   # find intersection between lists of cells
   # i.e. cells with at least one spot in each channel

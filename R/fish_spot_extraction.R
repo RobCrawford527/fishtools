@@ -34,11 +34,9 @@ fish_spot_extraction <- function(file, line_selection, channel){
   # reorder columns
   # rename Pos_X to x_pos etc.
   data <- dplyr::mutate(data,
-                        cell = cell,
+                        cell = type.convert(cell, as.is = TRUE),
                         channel = channel,
                         spot = as.factor(spot),
-                        identifier = paste(cell, channel, spot, sep = "_"),
-                        number_of_spots = number_of_spots,
                         .before = cell_has_spots)
   data <- dplyr::rename(data,
                         x_pos = Pos_X,
