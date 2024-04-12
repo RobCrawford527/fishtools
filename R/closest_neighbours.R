@@ -11,14 +11,14 @@ closest_neighbours <- function(distances){
 
   # group by spots in ch1 and keep only minimum distance for each spot
   # ungroup
-  neighbours_ch1 <- dplyr::group_by(distances, cell_ch1)
+  neighbours_ch1 <- dplyr::group_by(distances, cell, channel_1, mRNA_1)
   neighbours_ch1 <- dplyr::filter(neighbours_ch1, distance == min(distance))
   neighbours_ch1 <- dplyr::ungroup(neighbours_ch1)
   neighbours_ch1 <- dplyr::mutate(neighbours_ch1, reference_channel = "ch1")
 
   # group by spots in ch2 and keep only minimum distance for each spot
   # ungroup
-  neighbours_ch2 <- dplyr::group_by(distances, cell_ch2)
+  neighbours_ch2 <- dplyr::group_by(distances, cell, channel_2, mRNA_2)
   neighbours_ch2 <- dplyr::filter(neighbours_ch2, distance == min(distance))
   neighbours_ch2 <- dplyr::ungroup(neighbours_ch2)
   neighbours_ch2 <- dplyr::mutate(neighbours_ch2, reference_channel = "ch2")
