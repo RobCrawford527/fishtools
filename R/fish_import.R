@@ -16,7 +16,7 @@ fish_import <- function(path, channel = NA, mRNA = NA){
   lines <- line_selection(fish)
 
   # extract spot data
-  spots <- fish_spot_extraction(fish, line_selection, channel)
+  spots <- fish_spot_extraction(fish, lines, channel)
 
   # return data frame
   spots
