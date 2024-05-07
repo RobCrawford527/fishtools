@@ -1,11 +1,11 @@
 #' Fit A Gaussian Mixture Model To FISH Spot Data
 #'
-#' @param data Output list from fish_combined, containing cell outlines and spot data
+#' @param spots Data frame containing spot data
 #'
 #' @return Parameters for a Gaussian mixture model from mclust
 #' @export
 #'
-fish_mclust <- function(data){
+fish_mclust <- function(spots){
 
   # check if mclust ia loaded and load it if not
   if (!isNamespaceLoaded("mclust")){
@@ -14,7 +14,7 @@ fish_mclust <- function(data){
 
   # create the model
   # uses default parameters for Mclust
-  model <- mclust::Mclust(data = data[["spots"]][["INT_raw"]])
+  model <- mclust::Mclust(data = spots)
 
   # simplify the model
   # write into table containing parameters
