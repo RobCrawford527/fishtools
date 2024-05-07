@@ -7,14 +7,14 @@
 #'
 fish_mclust <- function(spots){
 
-  # check if mclust ia loaded and load it if not
+  # check if mclust is loaded and load it if not
   if (!isNamespaceLoaded("mclust")){
     library(mclust)
   }
 
   # create the model
   # uses default parameters for Mclust
-  model <- mclust::Mclust(data = spots)
+  model <- mclust::Mclust(data = spots[["INT_raw"]])
 
   # simplify the model
   # write into table containing parameters

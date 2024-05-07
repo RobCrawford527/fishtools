@@ -4,10 +4,10 @@
 \alias{transform_data}
 \title{Transform Spot Data To Number Of mRNAs Per Spot}
 \usage{
-transform_data(data, model, threshold = 0, single_mRNA_component)
+transform_data(spots, model, threshold = 0, single_mRNA_component)
 }
 \arguments{
-\item{data}{Output list from fish_combined, containing cell outlines and spot data}
+\item{spots}{Data frame containing spot data}
 
 \item{model}{Gaussian mixture model parameters, the output of fish_mclust}
 

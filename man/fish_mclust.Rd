@@ -4,10 +4,10 @@
 \alias{fish_mclust}
 \title{Fit A Gaussian Mixture Model To FISH Spot Data}
 \usage{
-fish_mclust(data)
+fish_mclust(spots)
 }
 \arguments{
-\item{data}{Output list from fish_combined, containing cell outlines and spot data}
+\item{spots}{Data frame containing spot data}
 }
 \value{
 Parameters for a Gaussian mixture model from mclust
