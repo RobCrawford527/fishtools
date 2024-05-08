@@ -5,7 +5,7 @@
 #' @return Parameters for a Gaussian mixture model from mclust
 #' @export
 #'
-fish_mclust <- function(spots){
+mclust_spots <- function(spots){
 
   # check if mclust is loaded and load it if not
   if (!isNamespaceLoaded("mclust")){

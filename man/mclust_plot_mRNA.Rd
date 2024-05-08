@@ -4,10 +4,10 @@
 \alias{mclust_plot_mRNA}
 \title{Plot Histogram And Gaussian Mixture Model From Transformed Spot Data}
 \usage{
-mclust_plot_mRNA(data, model, n_bins = 120)
+mclust_plot_mRNA(spots, model, n_bins = 120)
 }
 \arguments{
-\item{data}{Output list from transform_data, containing number_of_mRNAs column in spots data frame}
+\item{spots}{Data frame containing spot data}
 
 \item{model}{Transformed Gaussian mixture model parameters to use. The output of fish_mclust and transform_model.}
 

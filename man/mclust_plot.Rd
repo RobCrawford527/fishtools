@@ -4,10 +4,10 @@
 \alias{mclust_plot}
 \title{Plot Histogram And Gaussian Mixture Model From Spot Data}
 \usage{
-mclust_plot(data, model, n_bins = 120)
+mclust_plot(spots, model, n_bins = 120)
 }
 \arguments{
-\item{data}{Output list from fish_combined, containing cell outlines and spot data}
+\item{spots}{Data frame containing spot data}
 
 \item{model}{Gaussian mixture model parameters to use. The output of fish_mclust.}
 
