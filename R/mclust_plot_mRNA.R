@@ -1,26 +1,26 @@
 #' Plot Histogram And Gaussian Mixture Model From Transformed Spot Data
 #'
-#' @param data Output list from transform_data, containing number_of_mRNAs column in spots data frame
+#' @param spots Data frame containing spot data
 #' @param model Transformed Gaussian mixture model parameters to use. The output of fish_mclust and transform_model.
 #' @param n_bins Number of bins to use (default = 120)
 #'
 #' @return A histogram with overlaid Gaussian mixture model
 #' @export
 #'
-mclust_plot_mRNA <- function(data, model, n_bins = 120){
+mclust_plot_mRNA <- function(spots, model, n_bins = 120){
 
   # determine parameters
   # binwidth derived from data and number of bins
   # number of spots, number of components and parameters extracted from model
   # colours set
-  binwidth <- (max(data[["spots"]][["number_of_mRNAs"]]) - min(data[["spots"]][["number_of_mRNAs"]])) / n_bins
+  binwidth <- (max(spots[["number_of_mRNAs"]]) - min(spots[["number_of_mRNAs"]])) / n_bins
   n_spots <- model[["n_spots"]]
   n_components <- max(model[["parameters"]][["component"]])
   parameters <- model[["parameters"]]
   colours <- viridis::viridis(n = n_components, begin = 0.1, end = 0.9)
 
   # set up the plot
-  plot <- ggplot2::ggplot(data = data[["spots"]], ggplot2::aes(x = number_of_mRNAs)) +
+  plot <- ggplot2::ggplot(data = spots, ggplot2::aes(x = number_of_mRNAs)) +
 
     # plot histogram of the raw data
     ggplot2::geom_histogram(binwidth = binwidth, fill = "grey80", colour = "grey70") +
@@ -35,8 +35,8 @@ mclust_plot_mRNA <- function(data, model, n_bins = 120){
 
     # create evenly spaced x data
     components_i <- data.frame(component = i,
-                               x = seq(min(data[["spots"]][["number_of_mRNAs"]]),
-                                       max(data[["spots"]][["number_of_mRNAs"]]),
+                               x = seq(min(spots[["number_of_mRNAs"]]),
+                                       max(spots[["number_of_mRNAs"]]),
                                        length.out = 1000))
 
     # calculate value of component i at each value of x

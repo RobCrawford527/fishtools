@@ -1,26 +1,26 @@
 #' Plot Histogram And Gaussian Mixture Model From Spot Data
 #'
-#' @param data Output list from fish_combined, containing cell outlines and spot data
+#' @param spots Data frame containing spot data
 #' @param model Gaussian mixture model parameters to use. The output of fish_mclust.
 #' @param n_bins Number of bins to use (default = 120)
 #'
 #' @return A histogram with overlaid Gaussian mixture model
 #' @export
 #'
-mclust_plot <- function(data, model, n_bins = 120){
+mclust_plot <- function(spots, model, n_bins = 120){
 
   # determine parameters
   # binwidth derived from data and number of bins
   # number of spots, number of components and parameters extracted from model
   # colours set
-  binwidth <- (max(data[["spots"]][["INT_raw"]]) - min(data[["spots"]][["INT_raw"]])) / n_bins
+  binwidth <- (max(spots[["INT_raw"]]) - min(spots[["INT_raw"]])) / n_bins
   n_spots <- model[["n_spots"]]
   n_components <- max(model[["parameters"]][["component"]])
   parameters <- model[["parameters"]]
   colours <- viridis::viridis(n = n_components, begin = 0.1, end = 0.9)
 
   # set up the plot
-  plot <- ggplot2::ggplot(data = data[["spots"]], ggplot2::aes(x = INT_raw)) +
+  plot <- ggplot2::ggplot(data = spots, ggplot2::aes(x = INT_raw)) +
 
     # plot histogram of the raw data
     ggplot2::geom_histogram(binwidth = binwidth, fill = "grey80", colour = "grey70") +
@@ -35,8 +35,8 @@ mclust_plot <- function(data, model, n_bins = 120){
 
     # create evenly spaced x data
     components_i <- data.frame(component = i,
-                               x = seq(min(data[["spots"]][["INT_raw"]]),
-                                       max(data[["spots"]][["INT_raw"]]),
+                               x = seq(min(spots[["INT_raw"]]),
+                                       max(spots[["INT_raw"]]),
                                        length.out = 1000))
 
     # calculate value of component i at each value of x
