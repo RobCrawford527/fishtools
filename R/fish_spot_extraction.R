@@ -29,16 +29,15 @@ fish_spot_extraction <- function(file, line_selection, channel, mRNA){
   # convert to non-nested data frame
   data <- tidyr::unnest(data, spot_data)
 
-  # add channel column
-  # convert spot column to factor
-  # add identifier column - cell/channel/spot
+  # add channel and mRNA columns
+  # convert cell and spot columns to factor
   # reorder columns
   # rename Pos_X to x_pos etc.
   data <- dplyr::mutate(data,
-                        cell = type.convert(cell, as.is = TRUE),
+                        cell = as.factor(cell),
                         channel = channel,
                         mRNA = mRNA,
-                        spot = type.convert(spot, as.is = TRUE),
+                        spot = as.factor(spot),
                         .before = cell_has_spots)
   data <- dplyr::rename(data,
                         x_pos = Pos_X,

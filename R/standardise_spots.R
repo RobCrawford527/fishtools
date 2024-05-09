@@ -30,8 +30,11 @@ standardise_spots <- function(spots, outlines, pixel_size = NULL){
                             x_pos = x_pos * pixel_size,
                             y_pos = y_pos * pixel_size)
 
+  # convert cell column to factor
   # group by cell
   # calculate mean x and y positions for each cell to approximate xy centres
+  outlines <- dplyr::mutate(outlines,
+                            cell = as.factor(cell))
   outlines <- dplyr::group_by(outlines, cell)
   outlines <- dplyr::mutate(outlines,
                             x_cen = mean(x_pos),
@@ -46,7 +49,10 @@ standardise_spots <- function(spots, outlines, pixel_size = NULL){
   centres_xy <- dplyr::distinct(dplyr::select(outlines,
                                               cell, x_cen, y_cen))
 
+  # convert cell column to factor
   # group by cell
+  spots <- dplyr::mutate(spots,
+                         cell = as.factor(cell))
   spots <- dplyr::group_by(spots, cell)
 
   # calculate mean z positions for spots in each cell to approximate z centres
