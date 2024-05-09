@@ -8,10 +8,10 @@
 #' @return Data frame with an added column indicating whether each pair of spots is colocalised or not (TRUE or FALSE)
 #' @export
 #'
-fish_coloc_threshold <- function(distances,
-                                 method = "absolute",
-                                 threshold = 500,
-                                 multiplier = 1){
+colocalisation_test <- function(distances,
+                                method = "absolute",
+                                threshold = 500,
+                                multiplier = 1){
 
   # assess if spots are colocalised
   # "absolute" uses an absolute distance threshold
@@ -30,6 +30,15 @@ fish_coloc_threshold <- function(distances,
                                colocalised = ifelse(distance < fwhm_sum * multiplier, TRUE, FALSE))
 
   }
+
+  # calculate the percentage colocalisation
+  # print to the console
+  colocalisation <- sum(distances[["colocalised"]]) / nrow(distances) * 100
+  print(paste(colocalisation,
+              "% of spots are colocalised, using ",
+              ifelse(method == "absolute",
+                     paste("method = absolute with threshold of ", threshold, " nm."),
+                     paste("method = radius with multiplier of ", multiplier, " nm."))))
 
   # return mutated data frame
   distances

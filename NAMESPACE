@@ -2,8 +2,8 @@
 
 export(closest_neighbours)
 export(coloc_threshold_test)
+export(colocalisation_test)
 export(fish_cell_outlines)
-export(fish_coloc_threshold)
 export(fish_combined)
 export(fish_distances)
 export(fish_import)
