@@ -33,12 +33,13 @@ colocalisation_test <- function(distances,
 
   # calculate the percentage colocalisation
   # print to the console
-  colocalisation <- sum(distances[["colocalised"]]) / nrow(distances) * 100
+  colocalisation <- round(sum(distances[["colocalised"]]) / nrow(distances) * 100, 1)
   print(paste(colocalisation,
               "% of spots are colocalised, using ",
               ifelse(method == "absolute",
                      paste("method = absolute with threshold of ", threshold, " nm."),
-                     paste("method = radius with multiplier of ", multiplier, " nm."))))
+                     paste("method = radius with multiplier of ", multiplier, " nm.")),
+              sep = ""))
 
   # return mutated data frame
   distances
