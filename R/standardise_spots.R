@@ -1,20 +1,21 @@
-#' Standardise Cell And Spot Position Data From FISH-QUANT
+#' Standardise Spot Position Data From FISH-QUANT
 #'
-#' @param data Output list from fish_combined, containing cell outlines and spot data
+#' @param spots Data frame containing spot data
+#' @param outlines Data frame containing cell outlines
 #' @param pixel_size The size of each pixel (in nanometers). If NULL (default), calculated from spot data: ratio of spot position in nm to spot position in pixels
 #'
-#' @return List containing cell centres, cell outlines and spots
+#' @return Data frame containing spot data, with standardised positions
 #' @export
 #'
-fish_standardise <- function(data, pixel_size = NULL){
+standardise_spots <- function(spots, outlines, pixel_size = NULL){
 
   # calculate pixel size if not set already
   if (is.null(pixel_size)){
 
     # calculate ratios for x and y
     # ratio of position in nm to position in pixels
-    x_ratio <- data[["spots"]][["x_pos"]] / data[["spots"]][["X_det"]]
-    y_ratio <- data[["spots"]][["y_pos"]] / data[["spots"]][["Y_det"]]
+    x_ratio <- spots[["x_pos"]] / spots[["X_det"]]
+    y_ratio <- spots[["y_pos"]] / spots[["Y_det"]]
 
     # determine pixel size
     # calculate mean ratio across x and y
@@ -24,9 +25,7 @@ fish_standardise <- function(data, pixel_size = NULL){
     print(pixel_size)
   }
 
-  # extract outline data
   # multiply by pixel_size to convert outline data to nanometers
-  outlines <- data[["outlines"]]
   outlines <- dplyr::mutate(outlines,
                             x_pos = x_pos * pixel_size,
                             y_pos = y_pos * pixel_size)
@@ -47,9 +46,7 @@ fish_standardise <- function(data, pixel_size = NULL){
   centres_xy <- dplyr::distinct(dplyr::select(outlines,
                                               cell, x_cen, y_cen))
 
-  # extract spot data
   # group by cell
-  spots <- data[["spots"]]
   spots <- dplyr::group_by(spots, cell)
 
   # calculate mean z positions for spots in each cell to approximate z centres
@@ -70,13 +67,10 @@ fish_standardise <- function(data, pixel_size = NULL){
                          z_pos = z_pos - z_cen)
   spots <- dplyr::ungroup(spots)
 
-  # create output list containing centres, outlines and spots
-  output <- list(centres = centres,
-                 outlines = dplyr::select(outlines,
-                                          cell, x_pos, y_pos),
-                 spots = dplyr::select(spots,
-                                       -x_cen, -y_cen, -z_cen))
+  # remove centre columns from data frame
+  spots <- dplyr::select(spots,
+                         -x_cen, -y_cen, -z_cen)
 
   # return output data frame
-  output
+  spots
 }

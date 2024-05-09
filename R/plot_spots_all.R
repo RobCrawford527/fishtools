@@ -1,14 +1,15 @@
 #' Plot FISH-QUANT Data For All Cells
 #'
-#' @param data Output list from fish_combined, containing cell outlines and spot data
+#' @param spots Data frame containing spot data
+#' @param outlines Data frame containing cell outlines
 #'
 #' @return ggplot object showing all cells and spots
 #' @export
 #'
-fish_plot_all <- function(data){
+plot_spots_all <- function(spots, outlines){
 
   # plot cell outlines
-  plot <- ggplot2::ggplot(data = data[["outlines"]],
+  plot <- ggplot2::ggplot(data = outlines,
                           mapping = ggplot2::aes(x = x_pos, y = -y_pos, group = cell)) +
     ggplot2::geom_polygon(alpha = 0.1) +
     ggplot2::facet_wrap(ggplot2::vars(cell), scales = "free") +
@@ -17,7 +18,7 @@ fish_plot_all <- function(data){
 
   # plot spots
   plot <- plot +
-    ggplot2::geom_point(data = data[["spots"]],
+    ggplot2::geom_point(data = spots,
                         mapping = ggplot2::aes(x = x_pos, y = -y_pos, group = cell, colour = channel))
 
   # return plot
