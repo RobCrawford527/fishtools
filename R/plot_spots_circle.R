@@ -1,17 +1,23 @@
 #' Plot FISH-QUANT Data For A Single Cell, With Spots Proportionately Sized
 #'
-#' @param spots Data frame containing spot data
+#' @param spots_1 Data frame containing spot data
+#' @param spots_2 Data frame containing spot data
 #' @param outlines Data frame containing cell outlines
 #' @param cell_of_interest The index of the cell to plot
 #'
 #' @return ggplot object showing cell of interest with all of its spots, with spots proportionately sized
 #' @export
 #'
-plot_spots_circle <- function(spots, outlines, cell_of_interest){
+plot_spots_circle <- function(spots_1 = NULL, spots_2 = NULL, outlines, cell_of_interest){
 
   # filter data for cell of interest
   outlines <- dplyr::filter(outlines, cell == cell_of_interest)
-  spots <- dplyr::filter(spots, cell == cell_of_interest)
+  if (!is.null(spots_1)){
+    spots_1 <- dplyr::filter(spots_1, cell == cell_of_interest)
+  }
+  if (!is.null(spots_2)){
+    spots_2 <- dplyr::filter(spots_2, cell == cell_of_interest)
+  }
 
   # plot cell outlines
   plot <- ggplot2::ggplot(data = outlines,
@@ -22,13 +28,30 @@ plot_spots_circle <- function(spots, outlines, cell_of_interest){
     ggplot2::theme(strip.background = ggplot2::element_blank(),
                    strip.text = ggplot2::element_blank())
 
-  # plot spots
-  plot <- plot +
-    ggforce::geom_circle(data = spots,
-                         mapping = ggplot2::aes(x = NULL, y = NULL, x0 = x_pos, y0 = -y_pos, r = SigmaX * sqrt(2 * log(2)), group = cell, colour = NULL, fill = channel),
-                         alpha = 0.75) +
-    ggplot2::geom_text(data = spots,
-                       mapping = ggplot2::aes(x = x_pos, y = -y_pos, group = cell, label = spot))
+  # define colours
+  colours <- viridis::viridis(n = 2, begin = 0.25, end = 0.75, direction = -1, option = "inferno")
+
+  # plot spots as appropriate
+  # spots_1
+  if (!is.null(spots_1)){
+    plot <- plot +
+      ggforce::geom_circle(data = spots_1,
+                           mapping = ggplot2::aes(x = NULL, y = NULL, x0 = x_pos, y0 = -y_pos, r = SigmaX * sqrt(2 * log(2)), group = cell),
+                           alpha = 0.75,
+                           fill = colours[1]) +
+      ggplot2::geom_text(data = spots_1,
+                         mapping = ggplot2::aes(x = x_pos, y = -y_pos, group = cell, label = spot))
+  }
+  # spots_2
+  if (!is.null(spots_2)){
+    plot <- plot +
+      ggforce::geom_circle(data = spots_2,
+                           mapping = ggplot2::aes(x = NULL, y = NULL, x0 = x_pos, y0 = -y_pos, r = SigmaX * sqrt(2 * log(2)), group = cell),
+                           alpha = 0.75,
+                           fill = colours[2]) +
+      ggplot2::geom_text(data = spots_2,
+                         mapping = ggplot2::aes(x = x_pos, y = -y_pos, group = cell, label = spot))
+  }
 
   # return plot
   plot
