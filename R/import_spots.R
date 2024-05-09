@@ -7,7 +7,7 @@
 #' @return Data frame containing spot data
 #' @export
 #'
-fish_import <- function(path, channel = NA, mRNA = NA){
+import_spots <- function(path, channel = NA, mRNA = NA){
 
   # read in file from path
   fish <- readLines(path)

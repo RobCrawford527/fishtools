@@ -37,8 +37,8 @@ colocalisation_test <- function(distances,
   print(paste0(colocalisation,
               "% of spots are colocalised, using ",
               ifelse(method == "absolute",
-                     paste("method = absolute with threshold of ", threshold, " nm"),
-                     paste("method = radius with multiplier of ", multiplier, " nm"))))
+                     paste0("method = absolute with threshold of ", threshold, " nm"),
+                     paste0("method = radius with multiplier of ", multiplier, " nm"))))
 
   # return mutated data frame
   distances
