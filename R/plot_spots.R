@@ -19,6 +19,9 @@ plot_spots <- function(spots_1 = NULL, spots_2 = NULL, outlines, cell_of_interes
     spots_2 <- dplyr::filter(spots_2, cell == cell_of_interest)
   }
 
+  # define colours
+  colours <- viridis::viridis(n = 2, begin = 0.25, end = 0.75, direction = -1, option = "inferno")
+
   # plot cell outlines
   plot <- ggplot2::ggplot(data = outlines,
                           mapping = ggplot2::aes(x = x_pos, y = -y_pos, group = cell)) +
@@ -29,9 +32,6 @@ plot_spots <- function(spots_1 = NULL, spots_2 = NULL, outlines, cell_of_interes
                    strip.text = ggplot2::element_blank()) +
     ggplot2::scale_colour_manual(breaks = c("spots 1", "spots 2"),
                                  values = c("spots 1" = colours[1], "spots 2" = colours[2]))
-
-  # define colours
-  colours <- viridis::viridis(n = 2, begin = 0.25, end = 0.75, direction = -1, option = "inferno")
 
   # plot spots as appropriate
   # spots_1
