@@ -31,19 +31,19 @@ colocalisation_test <- function(distances,
 
   }
 
-  # calculate the percentage colocalisation
+  # calculate the percentage colocalisation for each channel
   # print to the console
   colocalisation <- lapply(distances, function(x) round(sum(x[["colocalised"]]) / nrow(x) * 100, 1))
   print(paste0(colocalisation[1],
-              "% of spots in channel 1 are colocalised with a spot in channel 2, using ",
+              "% of channel 1 spots are colocalised with a channel 2 spot, using ",
               ifelse(method == "absolute",
-                     paste0("method = absolute with threshold of ", threshold, " nm"),
-                     paste0("method = radius with multiplier of ", multiplier, " nm"))))
+                     paste0("absolute threshold of ", threshold, " nm"),
+                     paste0("radius multiplier of ", multiplier))))
   print(paste0(colocalisation[2],
-               "% of spots in channel 2 are colocalised with a spot in channel 1, using ",
+               "% of channel 2 spots are colocalised with a channel 1 spot, using ",
                ifelse(method == "absolute",
-                      paste0("method = absolute with threshold of ", threshold, " nm"),
-                      paste0("method = radius with multiplier of ", multiplier, " nm"))))
+                      paste0("absolute threshold of ", threshold, " nm"),
+                      paste0("radius multiplier of ", multiplier))))
 
   # return mutated list
   distances

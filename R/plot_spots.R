@@ -30,7 +30,8 @@ plot_spots <- function(spots_1 = NULL, spots_2 = NULL, outlines, cell_of_interes
     ggplot2::theme_classic() +
     ggplot2::theme(strip.background = ggplot2::element_blank(),
                    strip.text = ggplot2::element_blank()) +
-    ggplot2::scale_colour_manual(breaks = c("spots 1", "spots 2"),
+    ggplot2::scale_colour_manual(name = "Dataset",
+                                 breaks = c("spots 1", "spots 2"),
                                  values = c("spots 1" = colours[1], "spots 2" = colours[2]))
 
   # plot spots as appropriate
