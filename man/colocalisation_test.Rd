@@ -12,7 +12,7 @@ colocalisation_test(
 )
 }
 \arguments{
-\item{distances}{Data frame containing distances between pairs of spots}
+\item{distances}{List of two data frames containing distances between nearest pairs of spots}
 
 \item{method}{Method used to determine colocalisation. Options are "radius" (uses sum of spot radii) or "absolute" (sets an absolute distance)}
 
@@ -21,7 +21,7 @@ colocalisation_test(
 \item{multiplier}{Multiplier for sum of radii. Set lower for more strict colocalisation. Used if method = "radius"}
 }
 \value{
-Data frame with an added column indicating whether each pair of spots is colocalised or not (TRUE or FALSE)
+List of two data frames with added columns indicating whether each pair of spots is colocalised or not (TRUE or FALSE)
 }
 \description{
 Use Threshold To Decide Whether Spots Are Colocalised

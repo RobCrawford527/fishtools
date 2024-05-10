@@ -4,10 +4,12 @@
 \alias{plot_spots_circle}
 \title{Plot FISH-QUANT Data For A Single Cell, With Spots Proportionately Sized}
 \usage{
-plot_spots_circle(spots, outlines, cell_of_interest)
+plot_spots_circle(spots_1 = NULL, spots_2 = NULL, outlines, cell_of_interest)
 }
 \arguments{
-\item{spots}{Data frame containing spot data}
+\item{spots_1}{Data frame containing spot data}
+
+\item{spots_2}{Data frame containing spot data}
 
 \item{outlines}{Data frame containing cell outlines}
 

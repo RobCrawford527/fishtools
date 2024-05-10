@@ -4,10 +4,12 @@
 \alias{plot_spots_all}
 \title{Plot FISH-QUANT Data For All Cells}
 \usage{
-plot_spots_all(spots, outlines)
+plot_spots_all(spots_1 = NULL, spots_2 = NULL, outlines)
 }
 \arguments{
-\item{spots}{Data frame containing spot data}
+\item{spots_1}{Data frame containing spot data}
+
+\item{spots_2}{Data frame containing spot data}
 
 \item{outlines}{Data frame containing cell outlines}
 }
