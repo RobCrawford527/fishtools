@@ -13,7 +13,7 @@ plot_spots(spots_1 = NULL, spots_2 = NULL, outlines, cell_of_interest)
 
 \item{outlines}{Data frame containing cell outlines}
 
-\item{cell_of_interest}{The index of the cell to plot}
+\item{cell_of_interest}{The name of the cell to plot (in format "Cell_CP_1")}
 }
 \value{
 ggplot object showing cell of interest with all of its spots

@@ -3,6 +3,7 @@
 export(closest_neighbours)
 export(coloc_threshold_test)
 export(colocalisation_test)
+export(find_intersection)
 export(fish_cell_outlines)
 export(fish_combined)
 export(fish_distances)
