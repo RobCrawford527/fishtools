@@ -3,7 +3,7 @@
 #' @param spots_1 Data frame containing spot data
 #' @param spots_2 Data frame containing spot data
 #' @param outlines Data frame containing cell outlines
-#' @param cell_of_interest The index of the cell to plot
+#' @param cell_of_interest The name of the cell to plot (in format "Cell_CP_1")
 #'
 #' @return ggplot object showing cell of interest with all of its spots
 #' @export
