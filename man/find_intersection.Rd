@@ -19,7 +19,7 @@ find_intersection(
 
 \item{component_1}{The first component of the model to compare. The first component must have the LOWER mean.}
 
-\item{component_2}{The second component pof the model to compare.}
+\item{component_2}{The second component of the model to compare.}
 
 \item{n_bins}{Number of bins to use (default = 120)}
 }
