@@ -4,19 +4,29 @@
 #' @param spots_2 Data frame containing spot data
 #' @param outlines Data frame containing cell outlines
 #' @param cell_of_interest The name of the cell to plot (in format "Cell_CP_1")
+#' @param pixel_size The size of each pixel (in nanometers)
+#' @param plot_labels Whether to plot spot labels (default = TRUE)
 #'
 #' @return ggplot object showing cell of interest with all of its spots, with spots proportionately sized
 #' @export
 #'
-plot_spots_circle <- function(spots_1 = NULL, spots_2 = NULL, outlines, cell_of_interest){
+plot_spots_circle <- function(spots_1 = NULL,
+                              spots_2 = NULL,
+                              outlines,
+                              cell_of_interest,
+                              pixel_size = 150,
+                              plot_labels = TRUE){
 
   # filter data for cell of interest
+  # calculate median raw intensities
   outlines <- dplyr::filter(outlines, cell == cell_of_interest)
   if (!is.null(spots_1)){
     spots_1 <- dplyr::filter(spots_1, cell == cell_of_interest)
+    median_1 <- median(spots_1[["INT_raw"]])
   }
   if (!is.null(spots_2)){
     spots_2 <- dplyr::filter(spots_2, cell == cell_of_interest)
+    median_2 <- median(spots_2[["INT_raw"]])
   }
 
   # define colours
@@ -39,19 +49,25 @@ plot_spots_circle <- function(spots_1 = NULL, spots_2 = NULL, outlines, cell_of_
   if (!is.null(spots_1)){
     plot <- plot +
       ggforce::geom_circle(data = spots_1,
-                           mapping = ggplot2::aes(x = NULL, y = NULL, x0 = x_pos, y0 = -y_pos, r = SigmaX * sqrt(2 * log(2)), group = cell, fill = "spots 1"),
-                           alpha = 0.75) +
-      ggplot2::geom_text(data = spots_1,
-                         mapping = ggplot2::aes(x = x_pos, y = -y_pos, group = cell, label = spot))
+                           mapping = ggplot2::aes(x = NULL, y = NULL, x0 = x_pos, y0 = -y_pos, r = pixel_size * (INT_raw / median_1), group = cell, fill = "spots 1"),
+                           alpha = 0.75)
+    if (plot_labels == TRUE){
+      plot <- plot +
+        ggplot2::geom_text(data = spots_1,
+                           mapping = ggplot2::aes(x = x_pos, y = -y_pos, group = cell, label = spot))
+    }
   }
   # spots_2
   if (!is.null(spots_2)){
     plot <- plot +
       ggforce::geom_circle(data = spots_2,
-                           mapping = ggplot2::aes(x = NULL, y = NULL, x0 = x_pos, y0 = -y_pos, r = SigmaX * sqrt(2 * log(2)), group = cell, fill = "spots 2"),
-                           alpha = 0.75) +
-      ggplot2::geom_text(data = spots_2,
-                         mapping = ggplot2::aes(x = x_pos, y = -y_pos, group = cell, label = spot))
+                           mapping = ggplot2::aes(x = NULL, y = NULL, x0 = x_pos, y0 = -y_pos, r = pixel_size * (INT_raw / median_2), group = cell, fill = "spots 2"),
+                           alpha = 0.75)
+    if (plot_labels == TRUE){
+      plot <- plot +
+        ggplot2::geom_text(data = spots_2,
+                           mapping = ggplot2::aes(x = x_pos, y = -y_pos, group = cell, label = spot))
+    }
   }
 
   # return plot
