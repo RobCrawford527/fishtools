@@ -19,7 +19,7 @@ standardise_spots <- function(spots, outlines, pixel_size = NULL){
 
     # determine pixel size
     # calculate mean ratio across x and y
-    pixel_size <- mean(c(x_ratio, y_ratio))
+    pixel_size <- median(c(x_ratio, y_ratio))
 
     # print pixel size
     print(pixel_size)
@@ -32,13 +32,13 @@ standardise_spots <- function(spots, outlines, pixel_size = NULL){
 
   # convert cell column to factor
   # group by cell
-  # calculate mean x and y positions for each cell to approximate xy centres
+  # calculate average of maximum and minimum x and y values to find cell centres
   outlines <- dplyr::mutate(outlines,
                             cell = as.factor(cell))
   outlines <- dplyr::group_by(outlines, cell)
   outlines <- dplyr::mutate(outlines,
-                            x_cen = mean(x_pos),
-                            y_cen = mean(y_pos))
+                            x_cen = (max(x_pos) + min(x_pos)) / 2,
+                            y_cen = (max(y_pos) + min(y_pos)) / 2)
 
   # standardise outlines by calculating x and y distances from cell centres
   outlines <- dplyr::mutate(outlines,
@@ -55,10 +55,10 @@ standardise_spots <- function(spots, outlines, pixel_size = NULL){
                          cell = as.factor(cell))
   spots <- dplyr::group_by(spots, cell)
 
-  # calculate mean z positions for spots in each cell to approximate z centres
+  # calculate average of maximum and minimum z values to find cell centres
   # this method used because cell outlines do not have z data
   centres_z <- dplyr::summarise(spots,
-                                z_cen = mean(z_pos))
+                                z_cen = (max(z_pos) + min(z_pos)) / 2)
 
   # join xy centres and z centres
   centres <- dplyr::left_join(centres_xy, centres_z, by = dplyr::join_by(cell))
