@@ -23,8 +23,8 @@ null_rotate_spots <- function(ch1_spots,
                                z_pos = -z_pos)
 
   # calculate distances between ch1 spots and rotated ch2 spots
-  rotated_distances <- fish_distances(ch1_spots = ch1_spots,
-                                      ch2_spots = ch2_rotated)
+  rotated_distances <- calculate_distances(ch1_spots = ch1_spots,
+                                           ch2_spots = ch2_rotated)
 
   # find closest neighbour in opposite channel
   rotated_nearest_spots <-  closest_neighbours(rotated_distances)

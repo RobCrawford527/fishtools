@@ -29,8 +29,8 @@ null_shuffle_spots <- function(ch1_spots,
                                 SigmaX = SigmaX[sample.int(n = total, size = total, replace = FALSE)])
 
   # calculate distances between ch1 spots and shuffled ch2 spots
-  shuffled_distances <- fish_distances(ch1_spots = ch1_spots,
-                                       ch2_spots = ch2_shuffled)
+  shuffled_distances <- calculate_distances(ch1_spots = ch1_spots,
+                                            ch2_spots = ch2_shuffled)
 
   # find closest neighbour in opposite channel
   shuffled_nearest_spots <- closest_neighbours(shuffled_distances)

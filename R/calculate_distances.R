@@ -6,7 +6,7 @@
 #' @return Data frame containing all pairwise distances between spots in opposite channels
 #' @export
 #'
-fish_distances <- function(ch1_spots, ch2_spots){
+calculate_distances <- function(ch1_spots, ch2_spots){
 
   # identify cells in each channel
   ch1_cells <- type.convert(unique(ch1_spots$cell), as.is = TRUE)
