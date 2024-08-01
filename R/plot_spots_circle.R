@@ -45,28 +45,43 @@ plot_spots_circle <- function(spots_1 = NULL,
                                values = c("spots 1" = colours[1], "spots 2" = colours[2]))
 
   # plot spots as appropriate
+  # spot radius is proportional to relative raw intensity (intensity / median intensity)
+  # when intensity = median intensity, radius = pixel_size
+  # plot spot labels as appropriate
   # spots_1
   if (!is.null(spots_1)){
     plot <- plot +
       ggforce::geom_circle(data = spots_1,
-                           mapping = ggplot2::aes(x = NULL, y = NULL, x0 = x_pos, y0 = -y_pos, r = pixel_size * (INT_raw / median_1), group = cell, fill = "spots 1"),
+                           mapping = ggplot2::aes(x = NULL, y = NULL,
+                                                  x0 = x_pos, y0 = -y_pos,
+                                                  r = pixel_size * (INT_raw / median_1),
+                                                  group = cell,
+                                                  fill = "spots 1"),
                            alpha = 0.75)
     if (plot_labels == TRUE){
       plot <- plot +
         ggplot2::geom_text(data = spots_1,
-                           mapping = ggplot2::aes(x = x_pos, y = -y_pos, group = cell, label = spot))
+                           mapping = ggplot2::aes(x = x_pos, y = -y_pos,
+                                                  group = cell,
+                                                  label = spot))
     }
   }
   # spots_2
   if (!is.null(spots_2)){
     plot <- plot +
       ggforce::geom_circle(data = spots_2,
-                           mapping = ggplot2::aes(x = NULL, y = NULL, x0 = x_pos, y0 = -y_pos, r = pixel_size * (INT_raw / median_2), group = cell, fill = "spots 2"),
+                           mapping = ggplot2::aes(x = NULL, y = NULL,
+                                                  x0 = x_pos, y0 = -y_pos,
+                                                  r = pixel_size * (INT_raw / median_2),
+                                                  group = cell,
+                                                  fill = "spots 2"),
                            alpha = 0.75)
     if (plot_labels == TRUE){
       plot <- plot +
         ggplot2::geom_text(data = spots_2,
-                           mapping = ggplot2::aes(x = x_pos, y = -y_pos, group = cell, label = spot))
+                           mapping = ggplot2::aes(x = x_pos, y = -y_pos,
+                                                  group = cell,
+                                                  label = spot))
     }
   }
 

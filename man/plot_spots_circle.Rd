@@ -4,7 +4,14 @@
 \alias{plot_spots_circle}
 \title{Plot FISH-QUANT Data For A Single Cell, With Spots Proportionately Sized}
 \usage{
-plot_spots_circle(spots_1 = NULL, spots_2 = NULL, outlines, cell_of_interest)
+plot_spots_circle(
+  spots_1 = NULL,
+  spots_2 = NULL,
+  outlines,
+  cell_of_interest,
+  pixel_size = 150,
+  plot_labels = TRUE
+)
 }
 \arguments{
 \item{spots_1}{Data frame containing spot data}
@@ -14,6 +21,10 @@ plot_spots_circle(spots_1 = NULL, spots_2 = NULL, outlines, cell_of_interest)
 \item{outlines}{Data frame containing cell outlines}
 
 \item{cell_of_interest}{The name of the cell to plot (in format "Cell_CP_1")}
+
+\item{pixel_size}{The size of each pixel (in nanometers)}
+
+\item{plot_labels}{Whether to plot spot labels (default = TRUE)}
 }
 \value{
 ggplot object showing cell of interest with all of its spots, with spots proportionately sized
