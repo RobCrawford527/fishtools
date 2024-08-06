@@ -29,6 +29,16 @@ plot_spots_circle <- function(spots_1 = NULL,
     median_2 <- median(spots_2[["INT_raw"]])
   }
 
+  # if two sets of data are supplied, test whether they are from the same channel
+  # if they are from the same channel, replace median_1 and median_2 with the overall median
+  # this ensures that the spot sizes are based on the same scalet, where appropriate
+  if (!is.null(spots_1) & !is.null(spots_2)){
+    if (all(unique(spots_1[["channel"]]) == unique(spots_2[["channel"]]))){
+      median_1 <- median(c(spots_1[["INT_raw"]], spots_2[["INT_raw"]]))
+      median_2 <- median(c(spots_1[["INT_raw"]], spots_2[["INT_raw"]]))
+    }
+  }
+
   # define colours
   colours <- viridis::viridis(n = 2, begin = 0.25, end = 0.75, direction = -1, option = "inferno")
 
