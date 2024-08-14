@@ -4,12 +4,10 @@
 \alias{singles_multis_summarise}
 \title{Summarise Number of Singles and Multis Per Cell in Spot Data}
 \usage{
-singles_multis_summarise(spots, threshold = 1.5)
+singles_multis_summarise(spots)
 }
 \arguments{
 \item{spots}{Data frame containing spot data, converted to mRNAs per cell}
-
-\item{threshold}{Threshold above which a spot is considered a multi mRNA foci}
 }
 \value{
 Data frame containing summary data for sample of interest

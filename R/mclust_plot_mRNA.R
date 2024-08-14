@@ -3,11 +3,15 @@
 #' @param spots Data frame containing spot data
 #' @param model Transformed Gaussian mixture model parameters to use. The output of fish_mclust and transform_model.
 #' @param n_bins Number of bins to use (default = 120)
+#' @param multi_threshold Minimum threshold to consider a spot a multi-mRNA granule
 #'
 #' @return A histogram with overlaid Gaussian mixture model
 #' @export
 #'
-mclust_plot_mRNA <- function(spots, model, n_bins = 120){
+mclust_plot_mRNA <- function(spots,
+                             model,
+                             n_bins = 120,
+                             multi_threshold = 1.5){
 
   # determine parameters
   # binwidth derived from data and number of bins
@@ -24,6 +28,7 @@ mclust_plot_mRNA <- function(spots, model, n_bins = 120){
 
     # plot histogram of the raw data
     ggplot2::geom_histogram(binwidth = binwidth, fill = "grey80", colour = "grey70") +
+    ggplot2::geom_vline(xintercept = multi_threshold, lty = 3, colour = "grey50") +
     ggplot2::scale_x_continuous(expand = c(0,0), breaks = seq(0, 50, 1)) +
     ggplot2::scale_y_continuous(expand = c(0,0)) +
     ggplot2::theme_classic()
