@@ -8,7 +8,7 @@
 singles_multis_summarise <- function(spots){
 
   # group data frame by cell and channel
-  spots_summary <- dplyr::group_by(spots_summary,
+  spots_summary <- dplyr::group_by(spots,
                                    cell, channel, mRNA)
 
   # summarise data frame
